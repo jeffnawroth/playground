@@ -18,7 +18,7 @@ const columns = computed(() => {
 })
 
 const rowIndex = computed(() => {
-  return Math.floor((colIndex.value ?? 0) / 10)
+  return Math.floor(colIndex.value / 10)
 })
 
 const lastIndexInRow = computed(() => {
@@ -62,10 +62,10 @@ const lastIndexInRow = computed(() => {
         </v-card>
       </v-col>
 
-
       <v-col
-        v-show="index === lastIndexInRow && colIndex !== null"
+        v-if="index === lastIndexInRow && colIndex !== null"
         cols="12"
+        width="1740"
       >
         <!-- <VRow
           class="border-sm"
@@ -88,7 +88,7 @@ const lastIndexInRow = computed(() => {
           </v-col>
         </VRow> -->
 
-        <!-- <v-toolbar
+        <v-toolbar
           density="compact"
           rounded
         >
@@ -117,7 +117,7 @@ const lastIndexInRow = computed(() => {
               </v-card>
             </v-col>
           </VRow>
-        </v-toolbar> -->
+        </v-toolbar>
         <div>
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
         </div>
@@ -125,3 +125,9 @@ const lastIndexInRow = computed(() => {
     </template>
   </VRow>
 </template>
+
+<style lang="scss" scoped>
+.colWidth::deep() {
+  width: 1740px !important ;
+}
+</style>
