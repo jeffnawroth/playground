@@ -42,4 +42,6 @@ jobs:
             cd ${{ secrets.DEPLOY_PATH }}
             pwd
             ls -la
+            eval "$(ssh-agent -s)"
+            ssh-add ${{ secrets.KEY }}
             git pull 
