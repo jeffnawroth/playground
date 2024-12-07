@@ -40,17 +40,13 @@ jobs:
           port: ${{ secrets.PORT }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-
-            export NVM_DIR=~/.nvm
-            source ~/.nvm/nvm.sh
-            npm --help
-
             cd ${{ secrets.DEPLOY_PATH }}
             eval "$(ssh-agent -s)"
             echo "${{ secrets.PASSPHRASE }}" | ssh-add ${{ secrets.KEY_PATH }}
             git pull origin main
 
-            npm instal -g pnpm
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
 
             pnpm install
             pnpm build
