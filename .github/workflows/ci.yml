@@ -41,7 +41,7 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
 
-            nvm -v
+            pwd
 
             cd ${{ secrets.DEPLOY_PATH }}
             eval "$(ssh-agent -s)"
