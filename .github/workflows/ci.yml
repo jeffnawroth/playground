@@ -30,19 +30,9 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: latest
-      - uses: actions/setup-node@v4
-        with:
-            node-version: lts/*
-            cache: pnpm
-      - name: Install
-        run: pnpm install
-        
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@v1.2.0
+
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
@@ -56,4 +46,5 @@ jobs:
             eval "$(ssh-agent -s)"
             echo "${{ secrets.PASSPHRASE }}" | ssh-add ${{ secrets.KEY_PATH }}
             git pull origin main
+            npm install -g pnpm 
             pnpm build
