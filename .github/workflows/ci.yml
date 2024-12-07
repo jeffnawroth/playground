@@ -40,4 +40,6 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
             cd ${{ secrets.DEPLOY_PATH }}
+            pwd
             ls -la
+            git pull 
