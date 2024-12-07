@@ -45,3 +45,4 @@ jobs:
             eval "$(ssh-agent -s)"
             echo "${{ secrets.PASSPHRASE }}" | ssh-add ${{ secrets.KEY_PATH }}
             git pull origin main
+            pnpm build
