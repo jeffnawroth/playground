@@ -44,5 +44,11 @@ jobs:
             eval "$(ssh-agent -s)"
             echo "${{ secrets.PASSPHRASE }}" | ssh-add ${{ secrets.KEY_PATH }}
             git pull origin main
+
+            curl -fsSL https://deb.nodesource.com/setup_20.x | sudo bash -
+            sudo apt-get install -y nodejs
+
+            npm install -g pnpm
+
             pnpm install
             pnpm build
