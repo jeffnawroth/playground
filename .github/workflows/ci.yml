@@ -39,5 +39,5 @@ jobs:
           port: ${{ secrets.PORT }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-            whoami
-            ls -al
+            cd ${{ secrets.DEPLOY_PATH }}
+            ls -la
