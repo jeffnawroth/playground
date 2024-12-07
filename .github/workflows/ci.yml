@@ -41,7 +41,9 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
 
-            pwd
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            npm --help
 
             cd ${{ secrets.DEPLOY_PATH }}
             eval "$(ssh-agent -s)"
