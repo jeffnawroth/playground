@@ -1,0 +1,10 @@
+{
+	"name": "my-package",
+	"version": "0.1.1",
+	"scripts": {
+		"release": "bumpp"
+	},
+	"dependencies": {
+		"bumpp": "^9.8.1"
+	}
+}
