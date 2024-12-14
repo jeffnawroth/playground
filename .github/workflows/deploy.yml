@@ -7,40 +7,27 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    name: Create Release
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@master
-      - name: Create Release for Tag
-        id: release_tag
-        uses: yyx990803/release-tag@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v1.2.0
+
         with:
-          tag_name: ${{ github.ref }}
-  # deploy:
-  #   name: Deploy
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: executing remote ssh commands using password
-  #       uses: appleboy/ssh-action@v1.2.0
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          script: |
+            cd ${{ secrets.DEPLOY_PATH }}
+            eval "$(ssh-agent -s)"
+            echo "${{ secrets.PASSPHRASE }}" | ssh-add ${{ secrets.KEY_PATH }}
+            git pull origin main
 
-  #       with:
-  #         host: ${{ secrets.HOST }}
-  #         username: ${{ secrets.USERNAME }}
-  #         key: ${{ secrets.KEY }}
-  #         port: ${{ secrets.PORT }}
-  #         passphrase: ${{ secrets.PASSPHRASE }}
-  #         script: |
-  #           cd ${{ secrets.DEPLOY_PATH }}
-  #           eval "$(ssh-agent -s)"
-  #           echo "${{ secrets.PASSPHRASE }}" | ssh-add ${{ secrets.KEY_PATH }}
-  #           git pull origin main
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
 
-  #           export NVM_DIR=~/.nvm
-  #           source ~/.nvm/nvm.sh
-
-  #           pnpm install
-  #           pnpm build
+            pnpm install
+            pnpm build
